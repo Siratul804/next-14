@@ -1,17 +1,15 @@
 "use server";
 
-import { query } from "@/lib/db";
+import { query } from "@/app/lib/db";
 
 export async function Create(formData) {
   try {
     const value = formData.get("email");
     console.log(value);
 
-    const id = 5;
-
     const user = await query({
-      query: "INSERT INTO users (id, email) VALUES (?,?)",
-      values: [id, value],
+      query: "INSERT INTO users (email) VALUES (?)",
+      values: [value],
     });
 
     if (user) {
