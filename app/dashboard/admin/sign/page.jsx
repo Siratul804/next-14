@@ -1,4 +1,4 @@
-import Sign from "../ui/Sign/Sign";
+import Sign from "../../../ui/Sign/Sign";
 const SignUp = () => {
   return (
     <div>

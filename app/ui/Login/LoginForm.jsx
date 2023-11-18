@@ -2,7 +2,6 @@
 
 import { authenticate } from "@/app/lib/actions";
 import { useFormState } from "react-dom";
-import Link from "next/link";
 
 const LoginForm = () => {
   const [state, formAction] = useFormState(authenticate, undefined);
@@ -15,15 +14,17 @@ const LoginForm = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="email"
-              placeholder="email"
               name="email"
+              placeholder="Enter your email address"
+              required
             />
             <div className="py-2"></div>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               type="password"
-              placeholder="password"
               name="password"
+              placeholder="Enter password"
+              required
             />
             <div className="py-2"></div>
             <main className="flex items-center justify-center ">
@@ -34,10 +35,13 @@ const LoginForm = () => {
                 Sign In
               </button>
             </main>
-            {state && state}
-            <Link href="/sign">
-              <p className="text-red-500 text-sm py-2"> Did't SignUp? </p>
-            </Link>
+            {state === "CredentialsSignin" ? (
+              <>
+                <b className="text-red-500"> Wrong Crendentials </b>
+              </>
+            ) : (
+              <></>
+            )}
           </form>
         </div>
       </section>

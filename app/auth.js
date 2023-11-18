@@ -12,14 +12,14 @@ const login = async (credentials) => {
 
     // console.log(user[0]);
 
-    if (!user[0]) throw new Error("No User with this main exits");
+    if (!user[0]) throw new Error("Wrong Credentials");
 
     const isPasswordCorrect = await bcrypt.compare(
       credentials.password,
       user[0].password
     );
 
-    if (!isPasswordCorrect) throw new Error("password does't match");
+    if (!isPasswordCorrect) throw new Error("Wrong Credentials");
 
     return user[0];
   } catch (err) {
@@ -35,7 +35,6 @@ export const { signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         try {
           const user = await login(credentials);
-          // console.log(user);
           return user;
         } catch (err) {
           return null;

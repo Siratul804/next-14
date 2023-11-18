@@ -2,7 +2,7 @@
 import { query } from "./db";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
-import { signIn } from "../auth";
+import { signIn } from "@/app/auth";
 
 export const addUser = async (prevState, formData) => {
   const { username, nickname, email, password, role } =
@@ -39,9 +39,12 @@ export const addUser = async (prevState, formData) => {
 
 export const authenticate = async (prevState, formData) => {
   const { email, password } = Object.fromEntries(formData);
-  if (!email || !password) {
-    return "Please Fill The Form";
+  try {
+    await signIn("credentials", { email, password });
+  } catch (error) {
+    if (error.message.includes("CredentialsSignin")) {
+      return "CredentialsSignin";
+    }
+    throw error;
   }
-
-  await signIn("credentials", { email, password });
 };
